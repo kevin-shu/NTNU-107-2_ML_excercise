@@ -57,22 +57,18 @@ class Balloon:
             self.y += self.vy*TIME_FRAME/2/111.111
             self.z += self.vz*TIME_FRAME/2
             
-            # burst
+            # burst!
             if(self.z>=ALTITUDE_LIMITATION and self.bursted==False):
                 self.bursted = True
                 self.buoyancy = 0
 
+            # log!
             if int(self.release_time*100) % (LOGGING_PERIOD*100) == 0 :
                 self.log.append( [self.x,self.y] )
 
-        text_file = open("path_log.txt", "w")
+        text_file = open("logs/path_log.txt", "w")
         for cor in self.log:
             text_file.write(str(cor[0])+","+str(cor[1])+"\n")
-        text_file.close()
-
-        text_file = open("google_map.txt", "w")
-        for cor in self.log:
-            text_file.write("{lat:"+str(cor[0])+", lng:"+str(cor[1])+"},\n")
         text_file.close()
 
         print("Costed "+ str(self.release_time)+" seconds...")
